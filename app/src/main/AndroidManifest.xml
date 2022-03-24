@@ -33,7 +33,7 @@
         <activity
             android:name=".ui.activities.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.DuckHunt.NoActionBar" />
+            android:theme="@style/Theme.DuckHunt.rojo" />
 
         <meta-data
             android:name="preloaded_fonts"
