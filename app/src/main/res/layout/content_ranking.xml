@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_granate"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,9 +26,11 @@
             android:fontFamily="@font/pixel"
             android:gravity="center"
             android:text="@string/nickname"
+            android:textColor="#FDD835"
             app:layout_constraintBottom_toBottomOf="@+id/tv_tituloDucks"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_tituloDucks" />
+            app:layout_constraintTop_toTopOf="@+id/tv_tituloDucks"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/tv_tituloDucks"
@@ -35,11 +39,13 @@
             android:fontFamily="@font/pixel"
             android:gravity="center"
             android:text="@string/ducks"
+            android:textColor="#FDD835"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tv_tituloNick"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tv_tituloPosition"
-            app:layout_constraintTop_toTopOf="@+id/tv_tituloPosition" />
+            app:layout_constraintTop_toTopOf="@+id/tv_tituloPosition"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/tv_tituloPosition"
@@ -49,9 +55,11 @@
             android:fontFamily="@font/pixel"
             android:gravity="center"
             android:text="@string/pos"
+            android:textColor="#FDD835"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.fragment.app.FragmentContainerView

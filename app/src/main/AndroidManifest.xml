@@ -29,7 +29,7 @@
         <activity
             android:name=".ui.activities.GameActivity"
             android:exported="true"
-            android:theme="@style/Theme.DuckHunt.NoActionBar" />
+            android:theme="@style/Theme.DuckHunt.Game" />
         <activity
             android:name=".ui.activities.LoginActivity"
             android:exported="true"

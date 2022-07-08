@@ -2,8 +2,6 @@ package com.miguel_lm.duckhunt.ui.activities;
 
 import static com.miguel_lm.duckhunt.common.constants.EXTRA_ID;
 import static com.miguel_lm.duckhunt.common.constants.EXTRA_NICK;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
@@ -14,10 +12,12 @@ import android.view.Display;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.miguel_lm.duckhunt.R;
 import java.util.Random;
+
 
 public class GameActivity extends AppCompatActivity {
 
@@ -31,6 +31,7 @@ public class GameActivity extends AppCompatActivity {
     String nick, id;
     FirebaseFirestore db;
     private long tiempoParaSalir = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

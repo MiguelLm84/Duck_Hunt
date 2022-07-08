@@ -14,6 +14,7 @@
         android:layout_height="100dp"
         android:contentDescription="@string/todo"
         android:src="@drawable/duck"
+        tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="95dp"
         tools:layout_editor_absoluteY="192dp" />
 
@@ -60,7 +61,8 @@
         android:src="@drawable/ic_timer"
         app:layout_constraintBottom_toBottomOf="@+id/tv_timer"
         app:layout_constraintEnd_toStartOf="@+id/tv_timer"
-        app:layout_constraintTop_toTopOf="@+id/tv_timer" />
+        app:layout_constraintTop_toTopOf="@+id/tv_timer"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tv_timer"

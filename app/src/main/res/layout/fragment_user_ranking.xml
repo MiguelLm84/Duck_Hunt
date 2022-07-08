@@ -16,6 +16,7 @@
         android:fontFamily="@font/pixel"
         android:gravity="center"
         android:text="@string/ducks"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/tv_position"
         app:layout_constraintEnd_toStartOf="@+id/tv_nickname"
         app:layout_constraintStart_toEndOf="@+id/tv_position"
@@ -29,6 +30,7 @@
         android:fontFamily="@font/pixel"
         android:gravity="center"
         android:text="@string/position"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +48,7 @@
         android:scrollHorizontally="true"
         android:singleLine="true"
         android:text="@string/nickname"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/tv_ducks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_ducks" />
