@@ -6,17 +6,8 @@
     app:startDestination="@id/userRankingFragment">
 
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.miguel_lm.duckhunt.ui.fragments.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second"/>
-    <fragment
         android:id="@+id/userRankingFragment"
         android:name="com.miguel_lm.duckhunt.ui.fragments.UserRankingFragment"
         android:label="fragment_user_ranking_list"
-        tools:layout="@layout/fragment_user_ranking_list" >
-        <action
-            android:id="@+id/action_userRankingFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_user_ranking_list" />
 </navigation>

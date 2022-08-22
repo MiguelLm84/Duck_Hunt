@@ -4,9 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/unnamed"
+    android:background="@drawable/background_screen_game"
     android:padding="16dp"
     tools:context=".ui.activities.SplashActivity">
+
+    <ImageView
+        android:id="@+id/iv_dog_jump4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginBottom="120dp"
+        android:contentDescription="@string/todo"
+        android:foreground="@drawable/dog_7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ImageContrastCheck,UnusedAttribute"
+        tools:targetApi="m" />
+
+    <ImageView
+        android:id="@+id/iv_dog_jump3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_dog_jump4"
+        app:layout_constraintEnd_toEndOf="@+id/iv_dog_jump4"
+        app:layout_constraintStart_toStartOf="@+id/iv_dog_jump4"
+        app:srcCompat="@drawable/dog_8"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/iv_dog_stand_up2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_dog_run2"
+        app:layout_constraintEnd_toEndOf="@+id/iv_dog_run2"
+        app:layout_constraintStart_toStartOf="@+id/iv_dog_run2"
+        app:srcCompat="@drawable/pixlr_bg_result"
+        tools:ignore="ImageContrastCheck" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/iv_dog_run2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="32dp"
+        android:rotationY="181"
+        android:src="@drawable/dog_run"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/iv_dog2"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="160dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/dog_smile_copia_unscreen"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
         android:id="@+id/iv_titulo"

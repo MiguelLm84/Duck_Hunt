@@ -7,8 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="rojo">#d32f2f</color>
-    <color name="rojo_oscuro">#9a0007</color>
-    <color name="azul">#1565c0</color>
-    <color name="transparente">#00000000</color>
+    <color name="red">#d32f2f</color>
+    <color name="dark_red">#9a0007</color>
+    <color name="azul">#54A4FF</color>
+    <color name="transparent">#00000000</color>
+    <color name="blue_dark">#1A237E</color>
+    <color name="golden">#BC9708</color>
+    <color name="yellow">#FDD835</color>
+    <color name="gray"> #535353</color>
 </resources>

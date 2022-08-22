@@ -4,13 +4,23 @@ public class User {
 
     private String nick;
     private int ducks;
+    private String email;
 
     public User() {
     }
 
-    public User(String nick, int ducks) {
+    public User(String nick, int ducks, String email) {
         this.nick = nick;
         this.ducks = ducks;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNick() {

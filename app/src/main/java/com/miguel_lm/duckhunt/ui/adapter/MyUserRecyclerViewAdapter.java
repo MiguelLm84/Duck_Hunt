@@ -30,7 +30,7 @@ public class MyUserRecyclerViewAdapter extends RecyclerView.Adapter<MyUserRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         int pos = position + 1;
-        holder.tv_position.setText(pos + "º");
+        holder.tv_position.setText(pos + ".");
         holder.tv_ducks.setText(String.valueOf(mValues.get(position).getDucks()));
         holder.tv_nickname.setText(mValues.get(position).getNick());
     }
