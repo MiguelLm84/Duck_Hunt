@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.miguel_lm.duckhunt.R;
@@ -29,11 +30,9 @@ import com.miguel_lm.duckhunt.provider.UserProvider;
 public class LoginActivity extends AppCompatActivity {
 
     Button btn_start, btn_reg, btn_ranking;
-    //FirebaseFirestore db;
     String email, password, nickPlayer, idPlayer, emailPlayer;
     public EditText ed_email;
     EditText ed_password;
-    //FirebaseAuth firebaseAuth;
     AuthProvider authProvider;
     private long timeToExit = 0;
     FirebaseUser currentUser;
@@ -70,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    //Method to start and manage the components
+    // and methods of the activity and manage the display of the dialog.
     private void init() {
 
         extras = getIntent().getExtras();
@@ -79,25 +80,27 @@ public class LoginActivity extends AppCompatActivity {
         if(extras != null){
             dialogActive = extras.getBoolean(EXTRA_DIALOG);
             if(dialogActive){
-                //getEmailPlayer(currentUser);
-                userProvider.getEmailUser(currentUser, null, LoginActivity.this);
-                dialog.showDialogLogin(LoginActivity.this);
+                if(currentUser != null){
+                    userProvider.getEmailUser(currentUser, null, LoginActivity.this);
+                    dialog.showDialogLogin(LoginActivity.this);
+                }
             }
         }
         initMethods(LoginActivity.this);
-        //getEmailPlayer(currentUser);
         userProvider.getEmailUser(currentUser, null, LoginActivity.this);
     }
 
+    //Method to start all the functions of the activity
     private void initMethods(Context context){
 
         initAndInstances();
         extrasData(context);
         eventButtonReg();
-        onClickBtnStart();
+        eventBtnStart();
         eventButtonRanking();
     }
 
+    //Method to manage the data received by the 'extras' bundle
     private void extrasData(Context context){
 
         if(dialog.dialogLogin != null){
@@ -108,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         argsDialog(context);
     }
 
-    //Método para mapear los componentes de la vista y generar instancia de FirebaseAuth.
+    //Method to map the components of the view and generate instances
     private void initAndInstances() {
 
         ed_email = findViewById(R.id.ed_email);
@@ -117,20 +120,16 @@ public class LoginActivity extends AppCompatActivity {
         btn_reg = findViewById(R.id.btn_reg);
         btn_ranking = findViewById(R.id.btn_ranking);
 
-        //firebaseAuth = FirebaseAuth.getInstance();
         authProvider = new AuthProvider();
-        //db = FirebaseFirestore.getInstance();
-
         extrasDialog = getIntent().getExtras();
-
         dialogToast = DialogToast.getInstance();
         dialog = Dialog.getInstance();
         sharedPreferences = SharedPreferences.getInstance();
     }
 
+    //Method to show dialog and show the email if there is a user logged in in the email field
     private void argsDialog(Context context) {
 
-        //currentUser = firebaseAuth.getCurrentUser();
         currentUser = authProvider.getUserSession();
         extrasDialog = getIntent().getExtras();
 
@@ -143,50 +142,15 @@ public class LoginActivity extends AppCompatActivity {
         if(extrasDialog != null) {
             dialogActive = extrasDialog.getBoolean(EXTRA_DIALOG);
             if(dialogActive){
-                //getEmailPlayer(currentUser);
-                userProvider.getEmailUser(currentUser, null, LoginActivity.this);
-                dialog.showDialogLogin(context);
+                if(currentUser != null){
+                    userProvider.getEmailUser(currentUser, null, LoginActivity.this);
+                    dialog.showDialogLogin(context);
+                }
             }
         }
     }
 
-    /*private void getEmailPlayer(FirebaseUser user){
-
-        if(user != null){
-            userProvider.getEmailUser(user, null, LoginActivity.this);
-            /*db.collection("users").whereEqualTo("email", user.getEmail()).get()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                documentManager(document);
-                            }
-                        } else {
-                            ed_email.setHint(R.string.email);
-                            Log.d("TAG", "Error getting documents: ", task.getException());
-                        }
-                    });*/
-        /*} /*else {
-            ed_email.setHint(R.string.email);
-        }*/
-    /*}
-
-    public void documentManager(QueryDocumentSnapshot document) {
-
-        if(document != null){
-            User userPlayer = document.toObject(User.class);
-            emailPlayer = userPlayer.getEmail();
-
-            if(emailPlayer != null){
-                ed_email.setText(emailPlayer);
-            } else {
-                ed_email.setHint(R.string.email);
-            }
-
-        } else {
-            ed_email.setHint(R.string.email);
-        }
-    }*/
-
+    //Method for handling the 'Ranking' button event
     private void eventButtonRanking() {
 
         btn_ranking.setOnClickListener(v -> {
@@ -197,6 +161,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //Method for handling the 'Registration' button event
     private void eventButtonReg() {
 
         btn_reg.setOnClickListener(v -> {
@@ -206,6 +171,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //Method to store the data in the SharedPreferences and send it to GameActivity
     public void saveAndSendData(String nick, String id, String email) {
 
         sharedPreferences.deleteValuesSharedPreferences(LoginActivity.this);
@@ -223,36 +189,22 @@ public class LoginActivity extends AppCompatActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
+    //Method to log in the user
     private void loginUser() {
 
         email = ed_email.getText().toString().toLowerCase();
         password = ed_password.getText().toString();
 
         authProvider.login(email, password, LoginActivity.this);
-
-        /*firebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, task -> {
-
-                    tryLogin = true;
-                    if(task.isSuccessful()){
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        updateUI(user);
-
-                    } else {
-                        Log.w("TAG", "loginError", task.getException());
-                        updateUI(null);
-                    }
-                });*/
     }
 
+    //Method to update the screen and show the received data if any
     public void updateUI(FirebaseUser user) {
 
         if(user != null){
-            //getNickPlayer(user);
             userProvider.getNickUser(user, LoginActivity.this);
 
         } else {
-            //Navegar hasta la siguiente pantalla de la app.
             extras = getIntent().getExtras();
             if(extras != null) {
                 nickPlayer = extras.getString(EXTRA_NICK);
@@ -262,37 +214,13 @@ public class LoginActivity extends AppCompatActivity {
 
             } else {
                 String errorText = "El usuario no existe o no está registrado";
-                dialogToast.showDialogToast(this, LoginActivity.this, errorText, false);
+                dialogToast.showDialogToast(this, LoginActivity.this, errorText, false, Toast.LENGTH_SHORT);
             }
         }
     }
 
-    /*private void getNickPlayer(FirebaseUser user){
-
-        db.collection("users").whereEqualTo("email", user.getEmail()).get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            if(document != null){
-                                User userPlayer = document.toObject(User.class);
-                                nickPlayer = userPlayer.getNick();
-                                idPlayer = user.getUid();
-                                emailPlayer = user.getEmail();
-                                saveAndSendData(nickPlayer, idPlayer, emailPlayer);
-
-                            } else {
-                                nickPlayer = "NAME NULL";
-                            }
-                        }
-                    } else {
-                        Toast.makeText(this, "El usuario no existe", Toast.LENGTH_SHORT).show();
-                        Log.d("TAG", "Error getting documents: ", task.getException());
-                    }
-                });
-    }*/
-
-    //Método onClick para botón de iniciar.
-    private void onClickBtnStart(){
+    //Method for handling the 'Start' button event
+    private void eventBtnStart(){
 
         btn_start.setOnClickListener(v -> {
             email = ed_email.getText().toString().toLowerCase();
@@ -327,7 +255,7 @@ public class LoginActivity extends AppCompatActivity {
         if (time - timeToExit > 3000) {
             timeToExit = time;
             String text = "Presionar de nuevo para salir";
-            dialogToast.showDialogToast(this, LoginActivity.this, text, false);
+            dialogToast.showDialogToast(this, LoginActivity.this, text, false, Toast.LENGTH_SHORT);
 
         } else {
             super.onBackPressed();

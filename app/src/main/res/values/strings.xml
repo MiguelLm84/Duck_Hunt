@@ -3,7 +3,7 @@
     <string name="iniciar">Start</string>
     <string name="todo">TODO</string>
     <string name="nick">Write your nickname</string>
-    <string name="version">Version 2.3.0</string>
+    <string name="version">Version 3.1.5</string>
     <string name="contador">0</string>
     <string name="nombre_usuario">Player</string>
     <string name="tiempo">60s</string>

@@ -9,15 +9,16 @@ import com.miguel_lm.duckhunt.ui.activities.LoginActivity;
 import com.miguel_lm.duckhunt.ui.activities.RegistrationActivity;
 
 
-
 public class AuthProvider {
 
     private final FirebaseAuth mAuth;
 
+    //FirebaseAuth instance
     public AuthProvider(){
         mAuth = FirebaseAuth.getInstance();
     }
 
+    //Method to register a new user
     public void register(String email, String password, Context context){
 
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -34,6 +35,7 @@ public class AuthProvider {
                 });
     }
 
+    //Method to login
     public void login(String email, String password, Context context){
 
         mAuth.signInWithEmailAndPassword(email, password)
@@ -50,26 +52,7 @@ public class AuthProvider {
                 });
     }
 
-    public String getUid(){
-
-        if(mAuth.getCurrentUser() != null){
-            return mAuth.getCurrentUser().getUid();
-
-        } else {
-            return null;
-        }
-    }
-
-    public String getEmailUser(){
-
-        if(mAuth.getCurrentUser() != null){
-            return mAuth.getCurrentUser().getEmail();
-
-        } else {
-            return null;
-        }
-    }
-
+    //Method to close session
     public void logout(Context context){
 
         if(mAuth != null){
@@ -79,6 +62,7 @@ public class AuthProvider {
         }
     }
 
+    //Method to show the logged in user
     public FirebaseUser getUserSession(){
 
         if(mAuth.getCurrentUser() != null){
@@ -88,5 +72,4 @@ public class AuthProvider {
             return null;
         }
     }
-
 }

@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,13 +30,15 @@ public class UserProvider {
 
     CollectionReference mCollection;
     String nickPlayer;
-    SharedPreferences sharedPreferences;
+    SharedPreferences sharedPreferences = SharedPreferences.getInstance();
     DialogToast dialogToast = DialogToast.getInstance();
 
+    //Database instance
     public UserProvider(){
         mCollection = FirebaseFirestore.getInstance().collection("users");
     }
 
+    //Method to update the counter in the db
     public void updateCounter(String id, int counter) {
 
         Map<String, Object> map = new HashMap<>();
@@ -43,6 +47,7 @@ public class UserProvider {
         mCollection.document(id).update(map);
     }
 
+    //Method to display the user's email
     public void getEmailUser(FirebaseUser user, String emailPlayer, Context context) {
 
         mCollection.whereEqualTo("email", user != null ? user.getEmail() : emailPlayer).get()
@@ -65,14 +70,14 @@ public class UserProvider {
                             ((GameActivity)context).getCounterAndTimer(0);
                         }
                         String text = "El usuario no existe";
-                        dialogToast.showDialogToast(context, ((Activity)context), text, false);
+                        dialogToast.showDialogToast(context, ((Activity)context), text, false, Toast.LENGTH_SHORT);
                     }
                 });
     }
 
+    //Method to retrieve the user's email from the database
     public void documentManagerLogin(QueryDocumentSnapshot document, Context context) {
 
-        sharedPreferences = SharedPreferences.getInstance();
         String email = sharedPreferences.getValueEmailPreference(context);
 
         if(document != null){
@@ -92,6 +97,7 @@ public class UserProvider {
         }
     }
 
+    //Method to display the user's nick
     public void getNickUser(FirebaseUser user, Context context){
 
         mCollection.whereEqualTo("email", user.getEmail()).get()
@@ -106,16 +112,17 @@ public class UserProvider {
                                 ((LoginActivity)context).saveAndSendData(nickPlayer, idPlayer, emailPlayer);
 
                             } else {
-                                nickPlayer = "NAME NULL";
+                                nickPlayer = "NULL NAME";
                             }
                         }
                     } else {
                         String text = "El usuario no existe";
-                        dialogToast.showDialogToast(context, ((LoginActivity)context), text, false);
+                        dialogToast.showDialogToast(context, ((LoginActivity)context), text, false, Toast.LENGTH_SHORT);
                     }
                 });
     }
 
+    //Method to update the user in the database
     public void updateUser(FirebaseUser user, User newUser, Context context) {
 
         mCollection.document(user.getUid()).set(newUser).addOnCompleteListener(task -> {
@@ -124,6 +131,7 @@ public class UserProvider {
                     ((RegistrationActivity)context).progressBar_reg.setVisibility(View.VISIBLE);
                     ((RegistrationActivity)context).ed_name_reg.setText("");
                 }, 5000);
+
                 sharedPreferences.saveNick(context, newUser.getNick());
                 sharedPreferences.saveID(context, user.getUid());
                 sharedPreferences.saveEmail(context, newUser.getEmail());
@@ -137,8 +145,8 @@ public class UserProvider {
                 context.startActivity(intent);
 
             } else {
-                String text = "No se ha podido registrar al " + newUser.getNick();
-                dialogToast.showDialogToast(context,((RegistrationActivity)context), text, false);
+                String text = "No se ha podido registrar al jugador";
+                dialogToast.showDialogToast(context,((RegistrationActivity)context), text, false, Toast.LENGTH_SHORT);
             }
         });
     }

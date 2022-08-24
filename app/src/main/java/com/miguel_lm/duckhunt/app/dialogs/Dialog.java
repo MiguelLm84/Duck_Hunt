@@ -13,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import com.miguel_lm.duckhunt.R;
 import com.miguel_lm.duckhunt.app.SharedPreferences;
@@ -42,6 +44,7 @@ public class Dialog {
         return instance;
     }
 
+    //Dialog to go to the ranking screen or to restart the game
     @SuppressLint("SetTextI18n")
     public void showDialogGameOver(Context context, int counter) {
 
@@ -66,6 +69,7 @@ public class Dialog {
         dialog.show();
     }
 
+    //Dialog to restart the game or return to the login screen
     @SuppressLint("SetTextI18n")
     public void showDialogOptionSelect(Context context) {
 
@@ -87,12 +91,16 @@ public class Dialog {
         dialogOptionSelect.show();
     }
 
+    //Method to restart game
     private void restartActivity(Context context) {
 
-        ((GameActivity)context).getIntent();
+        Intent i = ((GameActivity)context).getIntent();
+        i.putExtra(EXTRA_DIALOG_SELECT, false);
+        context.startActivity(i);
         dialog.dismiss();
     }
 
+    //Method to go to GameActivity
     private void goToGameActivity(Context context) {
 
         String nick = sharedPreferences.getValueNickPreference(context);
@@ -106,6 +114,7 @@ public class Dialog {
         dialogOptionSelect.dismiss();
     }
 
+    //Method to go to RankingActivity
     private void goToRankingActivity(Context context) {
 
         dialog.dismiss();
@@ -116,6 +125,7 @@ public class Dialog {
         ((Activity)context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
+    //Method to go to LoginActivity
     private void goToLoginActivity(Context context) {
 
         Intent i = new Intent(context, LoginActivity.class);
@@ -125,6 +135,7 @@ public class Dialog {
         ((GameActivity)context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
+    //Dialog to log out or continue in the app
     @SuppressLint("SetTextI18n")
     public void showDialogLogin(Context context) {
 
@@ -146,6 +157,7 @@ public class Dialog {
         dialogLogin.show();
     }
 
+    //Method to start the components
     private void initComponents(View dialogLayout) {
 
         tvTitle = dialogLayout.findViewById(R.id.tv_title_dialog);
@@ -156,6 +168,7 @@ public class Dialog {
         btnTwo = dialogLayout.findViewById(R.id.btn_two);
     }
 
+    //Method to handle the components of the login dialog
     @SuppressLint("SetTextI18n")
     private void dataComponentsDialogLogin() {
 
@@ -170,6 +183,7 @@ public class Dialog {
         btnTwo.setText("Exit");
     }
 
+    //Method to handle the components of the option selection dialog
     @SuppressLint("SetTextI18n")
     private void dataComponentsDialogOptionSelect(){
 
@@ -183,12 +197,13 @@ public class Dialog {
         btnTwo.setText("Back");
     }
 
+    //Method to go to LoginActivity when logout
     private void goToActivity(Context context) {
 
         signOut(context);
         sharedPreferences.deleteValuesSharedPreferences(context);
         String errorText = "Sesión cerrada correctamente";
-        dialogToast.showDialogToast(context, ((Activity)context), errorText, false);
+        dialogToast.showDialogToast(context, ((Activity)context), errorText, false, Toast.LENGTH_SHORT);
         Intent i = new Intent(context, LoginActivity.class);
         i.putExtra(EXTRA_DIALOG, false);
         context.startActivity(i);
@@ -196,11 +211,9 @@ public class Dialog {
         ((Activity)context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-
-    //Metodo para cerrar sesion de jugador.
+    //Method to close player session.
     private void signOut(Context context) {
 
-        //FirebaseAuth.getInstance().signOut();
         authProvider.logout(context);
     }
 }

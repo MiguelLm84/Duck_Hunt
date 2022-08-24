@@ -27,7 +27,6 @@ public class SplashActivity extends AppCompatActivity {
     ImageView iv_title, iv_dog_jump, iv_dog_jump2, iv_dog_stand_up;
     pl.droidsonroids.gif.GifImageView iv_dog, iv_dog_run;
     TextView tv_version;
-    //FirebaseAuth firebaseAuth;
     AuthProvider authProvider;
     FirebaseUser currentUser;
 
@@ -44,11 +43,11 @@ public class SplashActivity extends AppCompatActivity {
         init();
         animLogoSplash();
         animTextVersionSplashIn();
-        initSplash();
+        initAnimSplash();
         splashTime();
     }
 
-    //Método para mapear los distintos componentes de la vista.
+    //Method to map the different components of the view
     public void init(){
 
         iv_title = findViewById(R.id.iv_titulo);
@@ -65,7 +64,8 @@ public class SplashActivity extends AppCompatActivity {
         iv_dog_run.setImageResource(R.drawable.dog_run);
     }
 
-    public void initSplash() {
+    //Method to start the splash animation
+    public void initAnimSplash() {
 
         iv_dog_stand_up.setVisibility(View.INVISIBLE);
         iv_dog_jump.setVisibility(View.INVISIBLE);
@@ -133,11 +133,10 @@ public class SplashActivity extends AppCompatActivity {
         }, 9000);
     }
 
+    //Method that returns if the session is active when checking if the user's authentication
     private boolean getSessionActive(){
 
-        //firebaseAuth = FirebaseAuth.getInstance();
         authProvider = new AuthProvider();
-        //currentUser = firebaseAuth.getCurrentUser();
         currentUser = authProvider.getUserSession();
         boolean sessionActive = false;
 
@@ -147,7 +146,7 @@ public class SplashActivity extends AppCompatActivity {
         return sessionActive;
     }
 
-    //Método mostrar splash durante un tiempo determinado y después ir a la pantalla de login.
+    //Method show splash for a given time and then go to the login screen
     private void splashTime(){
 
         new Handler().postDelayed(() -> {
@@ -162,14 +161,14 @@ public class SplashActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    //Método para animación del logo del juego.
+    //Method for animation of the game logo
     public void animLogoSplash(){
 
         Animation anim1 = AnimationUtils.loadAnimation(this,R.anim.desplazamiento_arriba);
         iv_title.setAnimation(anim1);
     }
 
-    //Método para la animación del TextView de la versión.
+    //Method for the animation of the version's TextView
     @RequiresApi(api = Build.VERSION_CODES.P)
     public void animTextVersionSplashIn() {
 

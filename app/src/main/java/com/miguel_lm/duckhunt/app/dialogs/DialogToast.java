@@ -23,9 +23,9 @@ public class DialogToast {
     }
 
     //Method to display custom Toast.
-    public void showDialogToast(Context context, Activity activity, String text, boolean activeIcon) {
+    public void showDialogToast(Context context, Activity activity, String text, boolean activeIcon, int duration) {
 
-        Toast toast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(context, "", duration);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View toastView = inflater.inflate(R.layout.custom_toast, activity.findViewById(R.id.mylayout));
         TextView tv_message_toast = toastView.findViewById(R.id.tv_message_toast);

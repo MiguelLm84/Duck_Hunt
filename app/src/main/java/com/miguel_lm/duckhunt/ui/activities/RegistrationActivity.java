@@ -9,6 +9,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseUser;
 import com.miguel_lm.duckhunt.app.dialogs.DialogToast;
@@ -26,9 +28,7 @@ public class RegistrationActivity extends AppCompatActivity {
     public EditText ed_name_reg;
     Button btn_reg;
     public ProgressBar progressBar_reg;
-    //FirebaseAuth firebaseAuth;
     AuthProvider authProvider;
-    //FirebaseFirestore db;
     UserProvider userProvider;
     View view;
     DialogToast dialogToast;
@@ -40,9 +40,10 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         init();
-        events();
+        eventButtonRegister();
     }
 
+    //Method to map the components and create the necessary instances
     private void init() {
 
         ed_name_reg = findViewById(R.id.ed_name_reg);
@@ -51,15 +52,14 @@ public class RegistrationActivity extends AppCompatActivity {
         btn_reg = findViewById(R.id.btn_registrarse);
         progressBar_reg = findViewById(R.id.progressBar_registro);
 
-        //firebaseAuth = FirebaseAuth.getInstance();
         authProvider = new AuthProvider();
-        //db = FirebaseFirestore.getInstance();
         userProvider = new UserProvider();
         dialogToast = DialogToast.getInstance();
         sharedPreferences = SharedPreferences.getInstance();
     }
 
-    private void events() {
+    //Method for the event of the button to register a new user
+    private void eventButtonRegister() {
 
         btn_reg.setOnClickListener(v -> {
 
@@ -79,6 +79,7 @@ public class RegistrationActivity extends AppCompatActivity {
         });
     }
 
+    //Method to manage empty fields and register
     private void ManagerEmptyFieldsAndPerformRegistration(String name, String email, String pass) {
 
         if(name.isEmpty()){
@@ -91,65 +92,22 @@ public class RegistrationActivity extends AppCompatActivity {
             ed_password_reg.setError("La contraseña es obligatoria");
 
         } else {
-            createUser(email, pass);
+            authProvider.register(email, pass, RegistrationActivity.this);
         }
     }
 
-    private void createUser(String email_reg, String pass_reg) {
-
-        authProvider.register(email_reg, pass_reg, RegistrationActivity.this);
-
-        /*firebaseAuth.createUserWithEmailAndPassword(email_reg, pass_reg)
-                .addOnCompleteListener(this, task -> {
-
-                    if(task.isSuccessful()){
-                        FirebaseUser user = firebaseAuth.getCurrentUser();
-                        updateUI(user);
-
-                    } else {
-                        Log.w("TAG", "createUserError", task.getException());
-                        updateUI(null);
-                    }
-                });*/
-    }
-
+    //Method to update the screen and store the new user
     public void updateUI(FirebaseUser user) {
 
         if(user != null) {
-            //Almacenar la información del usuario en Firestore.
             try {
+                //Store user information in Firestore
                 User newUser = new User(name_reg, 0, email_reg);
-
-                userProvider.updateUser(user, newUser, RegistrationActivity.this);
-
-                /*db.collection("users").document(user.getUid()).set(newUser).addOnCompleteListener(task -> {
-                    if(task.isSuccessful()){
-                        new Handler().postDelayed(() -> {
-                            progressBar_reg.setVisibility(View.VISIBLE);
-                            ed_name_reg.setText("");
-                        }, 5000);
-
-                        sharedPreferences.saveNick(this, name_reg);
-                        sharedPreferences.saveID(this, user.getUid());
-                        sharedPreferences.saveEmail(this, email_reg);
-
-                        progressBar_reg.setVisibility(View.INVISIBLE);
-                        finish();
-                        Intent intent = new Intent(RegistrationActivity.this, GameActivity.class);
-                        intent.putExtra(EXTRA_NICK, name_reg);
-                        intent.putExtra(EXTRA_ID, user.getUid());
-                        intent.putExtra(EXTRA_EMAIL, email_reg);
-                        startActivity(intent);
-
-                    } else {
-                        String text = "No se ha podido registrar al " + name_reg;
-                        dialogToast.showDialogToast(this,RegistrationActivity.this, text, false);
-                    }
-                });*/
+                userProvider.updateUser(user, newUser, this);
 
             } catch (Exception e) {
                 String text = "No se ha podido encriptar la password";
-                dialogToast.showDialogToast(this,RegistrationActivity.this, text, false);
+                dialogToast.showDialogToast(this,RegistrationActivity.this, text, false, Toast.LENGTH_SHORT);
                 Log.w("TAG", e.getMessage(), e);
                 e.printStackTrace();
             }
@@ -158,23 +116,6 @@ public class RegistrationActivity extends AppCompatActivity {
             ed_password_reg.setError("Nombre, email y/o password incorrectos.");
             ed_password_reg.requestFocus();
         }
-            /*db.collection("users").add(newUser)
-                    .addOnSuccessListener(documentReference -> {
-
-                        new Handler().postDelayed(() -> {
-                            progressBar_reg.setVisibility(View.VISIBLE);
-                            ed_name_reg.setText("");
-                        }, 5000);
-
-                        progressBar_reg.setVisibility(View.INVISIBLE);
-                        finish();
-                        Intent intent = new Intent(RegistrationActivity.this, GameActivity.class);
-                        intent.putExtra(EXTRA_NICK, name_reg);
-                        intent.putExtra(EXTRA_ID, documentReference.getId());
-                        intent.putExtra(EXTRA_EMAIL, email_reg);
-                        startActivity(intent);
-                    });
-        }*/
     }
 
     @SuppressLint("SetTextI18n")

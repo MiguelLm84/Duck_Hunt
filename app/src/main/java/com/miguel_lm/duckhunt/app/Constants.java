@@ -2,6 +2,7 @@ package com.miguel_lm.duckhunt.app;
 
 public class Constants {
 
+    //CONSTANTS TO SEND THROUGH THE INTENT OF THE ACTIVITIES
     public static final String EXTRA_NICK = "nick";
     public static final String EXTRA_ID = "id";
     public static final String EXTRA_DIALOG = "dialog";

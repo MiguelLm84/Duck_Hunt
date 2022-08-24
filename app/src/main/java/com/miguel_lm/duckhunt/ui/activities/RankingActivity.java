@@ -1,5 +1,6 @@
 package com.miguel_lm.duckhunt.ui.activities;
 
+import static com.miguel_lm.duckhunt.app.Constants.EXTRA_DIALOG;
 import static com.miguel_lm.duckhunt.app.Constants.EXTRA_DIALOG_SELECT;
 import static com.miguel_lm.duckhunt.app.Constants.EXTRA_EMAIL;
 import static com.miguel_lm.duckhunt.app.Constants.EXTRA_ID;
@@ -73,6 +74,7 @@ public class RankingActivity extends AppCompatActivity {
         i.putExtra(EXTRA_ID, sharedPreferences.getValueIDPreference(RankingActivity.this));
         i.putExtra(EXTRA_EMAIL, sharedPreferences.getValueEmailPreference(RankingActivity.this));
         i.putExtra(EXTRA_DIALOG_SELECT, true);
+        i.putExtra(EXTRA_DIALOG, true);
         startActivity(i);
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
